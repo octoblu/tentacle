@@ -13,7 +13,9 @@ class Tentacle {
     virtual void setMode(Pin pin);
     virtual void digitalWrite(int pin, int value);
     virtual void analogWrite(int pin, int value);
-    virtual std::vector<Pin> getValue();
+    virtual int digitalRead(int pin);
+    virtual int analogRead(int pin);
+    std::vector<Pin> getValue();
   private:
     Pin *config;
     int numPins;

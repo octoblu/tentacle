@@ -19,13 +19,11 @@ class Pin {
       ignore       = 8
     };
 
-    Pin(){}
-
-    Pin(int number,
+    Pin(int    number = 0,
         Action action = Pin::ignore,
-        int value = 0,
-        bool pullup=false,
-        int delay=0);
+        int    value  = 0,
+        bool   pullup = false,
+        int    delay  = 0);
 
     int getNumber();
     Action getAction();
