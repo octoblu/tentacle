@@ -7,18 +7,18 @@
 
 //Todo: Pins should have an enum for mode and state, so we're not dependent on Arduino
 class Pin {
-  enum Action {
-    digitalRead  = 1,
-    digitalWrite = 2,
-    analogRead   = 3,
-    servoWrite   = 4,
-    pwmWrite     = 5,
-    i2cWrite     = 6,
-    i2cRead      = 7,
-    ignore       = 8
-  };
-
   public:
+    enum Action {
+      digitalRead  = 1,
+      digitalWrite = 2,
+      analogRead   = 3,
+      servoWrite   = 4,
+      pwmWrite     = 5,
+      i2cWrite     = 6,
+      i2cRead      = 7,
+      ignore       = 8
+    };
+
     Pin(){}
 
     Pin(int number,
