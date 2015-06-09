@@ -1,7 +1,7 @@
 #include "pins.hpp"
 
 Pin::Pin(int number,
-    PinAction action,
+    Action action,
     int value,
     bool pullup,
     int delay) {
@@ -16,7 +16,7 @@ int Pin::getNumber(){
   return number;
 }
 
-PinAction Pin::getAction(){
+Pin::Action Pin::getAction(){
   return action;
 }
 
