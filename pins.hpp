@@ -1,11 +1,6 @@
 #ifndef pin_h
 #define pin_h
 
-#ifndef INPUT
-#define INPUT 0
-#endif
-
-//Todo: Pins should have an enum for mode and state, so we're not dependent on Arduino
 class Pin {
   public:
     enum Action {
