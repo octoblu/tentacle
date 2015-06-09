@@ -1,10 +1,6 @@
 #include "pins.hpp"
 
-Pin::Pin(int number,
-    Action action,
-    int value,
-    bool pullup,
-    int delay) {
+Pin::Pin(int number, Action action, int value, bool pullup, int delay) {
   this->number = number;
   this->action = action;
   this->value = value;

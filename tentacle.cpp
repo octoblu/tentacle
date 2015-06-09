@@ -18,9 +18,11 @@ void Tentacle::configurePins(std::vector<Pin> pins) {
 }
 
 void Tentacle::configurePin(Pin pin) {
-  if (pin.getNumber() < numPins) {
-    config[pin.getNumber()] = pin;
+  if (pin.getNumber() >= numPins) {
+    return;
   }
+  config[pin.getNumber()] = pin;
+  setMode(pin);
 }
 
 std::vector<Pin> Tentacle::getValue() {
