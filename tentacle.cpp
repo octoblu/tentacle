@@ -1,4 +1,5 @@
 #include "tentacle.h"
+#include "Arduino.h"
 
 void Tentacle::configurePins(std::vector<Pin> pins) {
   std::vector<Pin>::iterator pin = pins.begin();
@@ -16,11 +17,24 @@ void Tentacle::configurePin(Pin pin) {
   setMode(pin);
 }
 
-std::vector<Pin> Tentacle::getValue() {
-  std::vector<Pin> pins = std::vector<Pin>();
+Pin* Tentacle::getConfig() {
+  return config;
+}
 
-  for(int i = 0; i < getNumberOfPins(); i++) {
-    Pin pin = config[i];
+int Tentacle::getNumPins() {
+  return numPins;
+}
+
+std::vector<Pin> Tentacle::getValue(Pin *pinArray, int length) {
+  std::vector<Pin> pins = std::vector<Pin>();
+  Serial.print(F("Doing a getValue with length "));
+  Serial.println(length);
+
+  for(int i = 0; i < length; i++) {
+    Pin &pin = pinArray[i];
+    Serial.print(F("Doing a getValue for item "));
+    Serial.println(i);
+
     switch(pin.getAction()) {
       case Pin::digitalRead:
         pin.setValue( digitalRead(pin.getNumber()) );
@@ -36,6 +50,9 @@ std::vector<Pin> Tentacle::getValue() {
 
     pins.push_back(pin);
   }
+    return pins;
+}
 
-  return pins;
+std::vector<Pin> Tentacle::getValue() {
+  return getValue(config, numPins);
 }
