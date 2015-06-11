@@ -8,20 +8,28 @@ class Tentacle {
   public:
     void configurePins(std::vector<Pin> pins);
     void configurePin(Pin pin);
+
+    void updatePins();
+    void updatePins(std::vector<Pin> pins);
+
+    std::vector<Pin> getValue();
+    std::vector<Pin> getValue(std::vector<Pin> pins);
+
+    std::vector<Pin> getConfig();
+    size_t getNumPins();
+
+    void updatePin(Pin pin);
+
     virtual void setMode(Pin pin) = 0;
     virtual void digitalWrite(int pin, int value) = 0;
     virtual void analogWrite(int pin, int value) = 0;
     virtual bool digitalRead(int pin) = 0;
     virtual int analogRead(int pin) = 0;
-    void updatePins();
-    void updatePins(Pin *pinArray, int numPins);
-    std::vector<Pin> getValue();
-    std::vector<Pin> getValue(Pin *pinArray, int numPins);
-    Pin* getConfig();
-    int getNumPins();
+
+
   protected:
-    Pin *config;
-    int numPins;
+    std::vector<Pin> config;
+    size_t numPins;
 };
 
 #endif
