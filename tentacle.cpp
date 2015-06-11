@@ -22,6 +22,7 @@ std::vector<Pin> Tentacle::getValue(std::vector<Pin> pins) {
 
   while (pin < pins.end()) {
     updatePin(*pin);
+    pin++;
   }
 
   return pins;
