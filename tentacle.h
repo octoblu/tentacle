@@ -1,21 +1,16 @@
 #ifndef tentacle_h
 #define tentacle_h
 
-#include <vector>
 #include "pins.hpp"
 
 class Tentacle {
   public:
-    void configurePins(std::vector<Pin> pins);
     void configurePin(const Pin pin);
 
-    std::vector<Pin> *getValue();
-    std::vector<Pin> *getValue(std::vector<Pin> *pins);
+    Pin getValue(int pinNum);
+    void setValue(Pin &pin);
 
-    std::vector<Pin> *getConfig();
-    size_t getNumPins();
-
-    void updatePin(Pin pin);
+    int getNumPins() const;
 
     virtual void setMode(Pin pin) = 0;
     virtual void digitalWrite(int pin, int value) = 0;
@@ -25,8 +20,7 @@ class Tentacle {
 
 
   protected:
-    std::vector<Pin> config;
-    size_t numPins;
+    int numPins;
 };
 
 #endif
