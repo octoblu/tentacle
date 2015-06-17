@@ -7,15 +7,12 @@
 class Tentacle {
   public:
     void configurePins(std::vector<Pin> pins);
-    void configurePin(Pin pin);
+    void configurePin(const Pin pin);
 
-    void updatePins();
-    void updatePins(std::vector<Pin> pins);
+    std::vector<Pin> *getValue();
+    std::vector<Pin> *getValue(std::vector<Pin> *pins);
 
-    std::vector<Pin> getValue();
-    std::vector<Pin> getValue(std::vector<Pin> pins);
-
-    std::vector<Pin> getConfig();
+    std::vector<Pin> *getConfig();
     size_t getNumPins();
 
     void updatePin(Pin pin);
