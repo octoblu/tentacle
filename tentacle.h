@@ -13,6 +13,10 @@ class Tentacle {
 
     int getNumPins() const;
 
+    void configurePins(Pin *pins);
+    void performActions(Pin* pins);
+    void performAction(Pin &pin);
+
     virtual void setMode(Pin pin) = 0;
     virtual void digitalWrite(int pin, int value) = 0;
     virtual void analogWrite(int pin, int value) = 0;
