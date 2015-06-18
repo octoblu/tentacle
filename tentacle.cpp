@@ -4,15 +4,18 @@ void Tentacle::configurePin(const Pin pin) {
   // setMode(pin);
 }
 
-Pin Tentacle::getValue(int pinNum) {
-  return Pin(pinNum, Pin::digitalRead, digitalRead(pinNum));
+Pin &Tentacle::getPin(int pinNum) {
+  return pins[pinNum];
 }
 
 int Tentacle::getNumPins() const {
   return numPins;
 }
 
-void Tentacle::setValue(Pin &pin) {
+void Tentacle::setPin(const Pin &pin) {
+  pins[pin.getNumber()] = pin;
+  setMode(pin);
+
   switch(pin.getAction()) {
 
     case Pin::digitalWrite:
@@ -25,5 +28,11 @@ void Tentacle::setValue(Pin &pin) {
 
     default:
     return;
+  }
+}
+
+void Tentacle::resetPins() {
+  for(int i = 0; i < getNumPins(); i++) {
+    pins[i] = Pin(i);
   }
 }

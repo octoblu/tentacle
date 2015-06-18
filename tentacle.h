@@ -7,8 +7,9 @@ class Tentacle {
   public:
     void configurePin(const Pin pin);
 
-    Pin getValue(int pinNum);
-    void setValue(Pin &pin);
+    Pin &getPin(int pinNum);
+    void setPin(const Pin &pin);
+    void resetPins();
 
     int getNumPins() const;
 
@@ -21,6 +22,7 @@ class Tentacle {
 
   protected:
     int numPins;
+    Pin *pins;
 };
 
 #endif

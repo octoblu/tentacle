@@ -21,12 +21,12 @@ class Pin {
         bool   pullup = false,
         int    delay  = 0);
 
-    int getNumber();
-    Action getAction();
-    int getValue();
+    int getNumber() const;
+    Action getAction() const;
+    int getValue() const;
     void setValue(int value);
-    bool getPullup();
-    int getDelay();
+    bool getPullup() const;
+    int getDelay() const;
 
   private:
     int number;

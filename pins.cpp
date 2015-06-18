@@ -8,15 +8,15 @@ Pin::Pin(int number, Action action, int value, bool pullup, int delay) {
   this->delay = delay;
 }
 
-int Pin::getNumber(){
+int Pin::getNumber() const {
   return number;
 }
 
-Pin::Action Pin::getAction(){
+Pin::Action Pin::getAction() const {
   return action;
 }
 
-int Pin::getValue(){
+int Pin::getValue() const {
   return value;
 }
 
@@ -24,10 +24,10 @@ void Pin::setValue(int value){
   this->value = value;
 }
 
-bool Pin::getPullup(){
+bool Pin::getPullup() const {
   return pullup;
 }
 
-int Pin::getDelay(){
+int Pin::getDelay() const {
   return delay;
 }
