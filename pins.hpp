@@ -1,19 +1,9 @@
 #ifndef pin_h
 #define pin_h
 
-struct Pin {
-
-  struct Topic {
-    enum TopicEnum {
-      ignore    = 0,
-      configure = 1,
-      immediate = 2
-    };
-  };
-
-  struct Action {
-    enum ActionEnum {
-      ignore       = 0,
+class Pin {
+  public:
+    enum Action {
       digitalRead  = 1,
       digitalWrite = 2,
       analogRead   = 3,
@@ -21,32 +11,30 @@ struct Pin {
       servoWrite   = 5,
       pwmWrite     = 6,
       i2cWrite     = 7,
-      i2cRead      = 8
+      i2cRead      = 8,
+      ignore       = 9
     };
-  };
 
-  unsigned int       number;
-  unsigned int       value;
-  unsigned long      delay;
-  bool               pullup;
-  char*              id;
-  Topic::TopicEnum   topic;
-  Action::ActionEnum action;
-  bool               response;
-};
+    Pin(int    number = 0,
+        Action action = Pin::ignore,
+        int    value  = 0,
+        bool   pullup = false,
+        int    delay  = 0);
 
-struct PinNode {
-  Pin pin;
-  PinNode *next;
-};
+    int getNumber() const;
+    Action getAction() const;
+    int getValue() const;
+    void setValue(int value);
+    bool getPullup() const;
+    int getDelay() const;
 
-struct PinList {
-  unsigned int maxSize;
-  unsigned int size;
-  PinNode *head;
-  PinNode *tail;
-  bool insertPin( const Pin &pin );
-  void clear();
+  private:
+    int number;
+    Action action;
+    int value;
+    bool pullup;
+    int delay;
+
 };
 
 #endif
