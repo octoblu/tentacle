@@ -4,6 +4,7 @@
 class Pin {
   public:
     enum Action {
+      ignore       = 0,
       digitalRead  = 1,
       digitalWrite = 2,
       analogRead   = 3,
@@ -11,8 +12,7 @@ class Pin {
       servoWrite   = 5,
       pwmWrite     = 6,
       i2cWrite     = 7,
-      i2cRead      = 8,
-      ignore       = 9
+      i2cRead      = 8
     };
 
     Pin(int    number = 0,
@@ -35,6 +35,20 @@ class Pin {
     bool pullup;
     int delay;
 
+};
+
+struct PinNode {
+  Pin pin;
+  PinNode *next;
+};
+
+struct PinList {
+  unsigned int maxSize;
+  unsigned int size;
+  PinNode *head;
+  PinNode *tail;
+  bool insertPin(const Pin &pin);
+  void clear();
 };
 
 #endif

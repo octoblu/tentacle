@@ -5,22 +5,23 @@
 
 class Tentacle {
   public:
-    void configurePin(const Pin pin);
-
-    Pin &getPin(int pinNum);
+    Pin &getPin(const int pinNum) const;
     void setPin(const Pin &pin);
     void resetPins();
 
     int getNumPins() const;
 
-    virtual void setMode(Pin pin) = 0;
-    virtual void digitalWrite(int pin, int value) = 0;
-    virtual void analogWrite(int pin, int value) = 0;
-    virtual bool digitalRead(int pin) = 0;
-    virtual int analogRead(int pin) = 0;
-
+    virtual void setMode(const Pin &pin) const = 0;
+    virtual void digitalWrite(const int pin, const int value) = 0;
+    virtual void analogWrite(const int pin, const int value) = 0;
+    virtual bool digitalRead(const int pin) = 0;
+    virtual int analogRead(const int pin) = 0;
 
   protected:
+
+    void setup(int numPins);
+
+  private:
     int numPins;
     Pin *pins;
 };
