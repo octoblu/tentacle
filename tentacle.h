@@ -18,7 +18,6 @@ class Tentacle {
     virtual int analogRead(const int pin) = 0;
 
   protected:
-
     void setup(int numPins);
 
   private:

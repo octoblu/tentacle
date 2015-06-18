@@ -14,20 +14,20 @@ int Tentacle::getNumPins() const {
 }
 
 void Tentacle::setPin(const Pin &pin) {
-  if (pin.getNumber() >= this->numPins) {
+  if (pin.number >= this->numPins) {
     return;
   }
-  this->pins[pin.getNumber()] = pin;
+  this->pins[pin.number] = pin;
   setMode(pin);
 
-  switch(pin.getAction()) {
+  switch(pin.action) {
 
-    case Pin::digitalWrite:
-    this->digitalWrite(pin.getNumber(), pin.getValue());
+    case Pin::Action::digitalWrite:
+    this->digitalWrite(pin.number, pin.value);
     break;
 
-    case Pin::analogWrite:
-    this->analogWrite(pin.getNumber(), pin.getValue());
+    case Pin::Action::analogWrite:
+    this->analogWrite(pin.number, pin.value);
     break;
 
     default:
@@ -37,6 +37,6 @@ void Tentacle::setPin(const Pin &pin) {
 
 void Tentacle::resetPins() {
   for(int i = 0; i < getNumPins(); i++) {
-    this->pins[i] = Pin(i);
+    this->pins[i] = {i};
   }
 }
