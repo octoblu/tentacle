@@ -1,4 +1,9 @@
 #include "tentacle.h"
+#include "Arduino.h"
+
+Tentacle::~Tentacle() {
+  delete[] pins;
+}
 
 Tentacle& Tentacle::configurePin(const Pin pin) {
    setMode(pin);
@@ -66,7 +71,16 @@ Pin& Tentacle::processPin(Pin &pin) {
 
 Pin* Tentacle::processPins(Pin *pins) {
   for(int i = 0; i < numPins; i++) {
-    this->processPin(pins[i]);
+    Pin &pin = pins[i];
+    Serial.print("Processing pin ");
+    Serial.print(i);
+    Serial.print(" number: ");
+    Serial.print(pin.getNumber());
+    Serial.print(" action: ");
+    Serial.print(pin.getAction());
+    Serial.print(" value: ");
+    Serial.println(pin.getValue());
+    this->processPin(pin);
   }
 
   return pins;

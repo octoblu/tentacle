@@ -5,6 +5,7 @@
 
 class Tentacle {
   public:
+    ~Tentacle();
     Tentacle& configurePin(const Pin pin);
     Tentacle& configurePins(Pin* pins);
     Tentacle& resetPins();

@@ -16,6 +16,10 @@ Pin::Action Pin::getAction() const {
   return action;
 }
 
+void Pin::setAction(Action action){
+  this->action = action;
+}
+
 int Pin::getValue() const {
   return value;
 }

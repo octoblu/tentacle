@@ -25,6 +25,7 @@ class Pin {
     Action getAction() const;
     int getValue() const;
     void setValue(int value);
+    void setAction(Action action);
     bool getPullup() const;
     int getDelay() const;
 
