@@ -13,9 +13,10 @@ class Tentacle {
     Pin& getPin(int pinNum);
     Pin* getPins();
 
-    Pin& processPin(Pin &pin);
-    Pin* processPins(Pin* pins);
-    Pin* processPins();
+    Pin& processPin(Pin &pin, bool writeValue=false);
+    Pin* processPins(Pin* pins, bool writeValues=false);
+    Pin* processPins(bool writeValues=false);
+
 
     int getNumPins() const;
 
