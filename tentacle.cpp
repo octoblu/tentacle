@@ -1,38 +1,14 @@
 #include "tentacle.h"
 
-void Tentacle::configurePin(const Pin pin) {
-  // setMode(pin);
+Tentacle& Tentacle::configurePin(const Pin pin) {
+   setMode(pin);
+
+   return *this;
 }
 
-Pin &Tentacle::getPin(int pinNum) {
-  return pins[pinNum];
-}
-
-int Tentacle::getNumPins() const {
-  return numPins;
-}
-
-void Tentacle::setPin(const Pin &pin) {
-  pins[pin.getNumber()] = pin;
-  setMode(pin);
-
-  switch(pin.getAction()) {
-
-    case Pin::digitalWrite:
-      digitalWrite(pin.getNumber(), pin.getValue());
-    break;
-
-    case Pin::analogWrite:
-      analogWrite(pin.getNumber(), pin.getValue());
-    break;
-
-    default:
-    return;
-  }
-}
-
-void Tentacle::configurePins(Pin *pins) {
+Tentacle& Tentacle::configurePins(Pin *pins) {
   this->resetPins();
+
   for(int i = 0; i < numPins; i++) {
     Pin &pin = pins[i];
     this->pins[i] = pin;
@@ -41,15 +17,27 @@ void Tentacle::configurePins(Pin *pins) {
         setMode(pin);
     }
   }
+
+  return *this;
 }
 
-void Tentacle::performActions(Pin *pins) {
-  for(int i = 0; i < numPins; i++) {
-    this->performAction(pins[i]);
+Tentacle& Tentacle::resetPins() {
+  for(int i = 0; i < getNumPins(); i++) {
+    pins[i] = Pin(i);
   }
+
+  return *this;
 }
 
-void Tentacle::performAction(Pin &pin) {
+Pin& Tentacle::getPin(int pinNum) {
+  return pins[pinNum];
+}
+
+Pin* Tentacle::getPins() {
+  return pins;
+}
+
+Pin& Tentacle::processPin(Pin &pin) {
   switch(pin.getAction()) {
 
     case Pin::digitalWrite:
@@ -69,12 +57,25 @@ void Tentacle::performAction(Pin &pin) {
     break;
 
     default:
-    return;
+    break;
   }
+
+  return pin;
+
 }
 
-void Tentacle::resetPins() {
-  for(int i = 0; i < getNumPins(); i++) {
-    pins[i] = Pin(i);
+Pin* Tentacle::processPins(Pin *pins) {
+  for(int i = 0; i < numPins; i++) {
+    this->processPin(pins[i]);
   }
+
+  return pins;
+}
+
+Pin* Tentacle::processPins() {
+  return processPins(pins);
+}
+
+int Tentacle::getNumPins() const {
+  return numPins;
 }
