@@ -2,6 +2,7 @@
 #define tentacle_h
 
 #include "pins.hpp"
+#include "meshblu-credentials.h"
 
 class Tentacle {
   public:
@@ -19,6 +20,9 @@ class Tentacle {
 
 
     int getNumPins() const;
+
+    virtual const MeshbluCredentials& getCredentials() = 0;
+    virtual Tentacle& setCredentials(const char* uuid, const char* token) = 0;
 
     virtual Tentacle& setMode(Pin pin) = 0;
     virtual Tentacle& digitalWrite(int pin, int value) = 0;
