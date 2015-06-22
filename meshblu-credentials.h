@@ -1,5 +1,5 @@
-#ifndef TENTACLE_MESSAGE_H
-#define TENTACLE_MESSAGE_H
+#ifndef MESHBLU_CREDENTIALS_H
+#define MESHBLU_CREDENTIALS_H
 
 #include "pin-array.h"
 #include "pins.hpp"
