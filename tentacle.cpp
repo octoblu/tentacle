@@ -26,6 +26,10 @@ Tentacle& Tentacle::configurePins(Pin *pins) {
   return *this;
 }
 
+Tentacle& Tentacle::configurePins(const PinArray& pinArray) {
+  return configurePins(pinArray.getElements());
+}
+
 Tentacle& Tentacle::resetPins() {
   for(int i = 0; i < getNumPins(); i++) {
     pins[i] = Pin(i);
@@ -93,6 +97,10 @@ Pin* Tentacle::processPins(Pin *pins, bool writeValues) {
   }
 
   return pins;
+}
+
+Pin* Tentacle::processPins(const PinArray& pinArray, bool writeValues) {
+  return processPins(pinArray.getElements(), writeValues);
 }
 
 Pin* Tentacle::processPins(bool writeValues) {

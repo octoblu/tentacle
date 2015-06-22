@@ -18,24 +18,21 @@ class Pin {
     Pin(int    number = 0,
         Action action = Pin::ignore,
         int    value  = 0,
-        bool   pullup = false,
-        int    delay  = 0);
+        bool   pullup = false);
 
     int getNumber() const;
     Action getAction() const;
     int getValue() const;
-    void setValue(int value);
-    void setAction(Action action);
+    Pin setValue(int value);
+    Pin setAction(Action action);
     bool getPullup() const;
-    int getDelay() const;
+    Pin reset(int number);
 
   private:
     int number;
     Action action;
     int value;
     bool pullup;
-    int delay;
-
 };
 
 #endif

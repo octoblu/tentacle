@@ -9,6 +9,7 @@ class Tentacle {
     ~Tentacle();
     Tentacle& configurePin(const Pin pin);
     Tentacle& configurePins(Pin* pins);
+    Tentacle& configurePins(const PinArray& pinArray);
     Tentacle& resetPins();
 
     Pin& getPin(int pinNum);
@@ -16,6 +17,7 @@ class Tentacle {
 
     Pin& processPin(Pin &pin, bool writeValue=false);
     Pin* processPins(Pin* pins, bool writeValues=false);
+    Pin* processPins(const PinArray& pinArray, bool writeValues=false);
     Pin* processPins(bool writeValues=false);
 
 
