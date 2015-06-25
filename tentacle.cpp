@@ -22,7 +22,7 @@ Tentacle::~Tentacle() {
 }
 
 Tentacle& Tentacle::configurePin(int number, Action action) {
-
+  pinActions[number] = action;
   if(action == Action_ignore) {
       return *this;
   }
@@ -42,33 +42,35 @@ Tentacle& Tentacle::configurePins(Action* actions) {
   return *this;
 }
 
-int Tentacle::processPin(int pin, int value) {
-  Action action = pinActions[pin];
+int Tentacle::processPin(int number, int value) {
+  Action action = pinActions[number];
   switch(action) {
 
     case Action_digitalWrite:
-      digitalWrite(pin, value);
+      digitalWrite(number, value);
       return value;
     break;
 
     case Action_analogWrite:
-      analogWrite(pin, value);
+      analogWrite(number, value);
       return value;
     break;
   }
 
-  return processPin(pin);
+  return processPin(number);
 }
 
-int Tentacle::processPin(int pin) {
-  Action action = pinActions[pin];
+int Tentacle::processPin(int number) {
+  Action action = pinActions[number];
   switch(action) {
     case Action_digitalRead:
-      return digitalRead(pin);
+    case Action_digitalReadPullup:
+      return digitalRead(number);
     break;
 
     case Action_analogRead:
-      return analogRead(pin);
+    case Action_analogReadPullup:
+      return analogRead(number);
     break;
 
     default:

@@ -15,7 +15,7 @@ class Tentacle {
 
     Action* getPinActions();
 
-    int processPin(int pin, int value);
+    int processPin(int number, int value);
     int processPin(int pin);
 
 
@@ -24,11 +24,11 @@ class Tentacle {
     virtual const MeshbluCredentials& getCredentials() = 0;
     virtual Tentacle& setCredentials(const char* uuid, const char* token) = 0;
 
-    virtual Tentacle& setMode(int pin, Action action) = 0;
-    virtual Tentacle& digitalWrite(int pin, int value) = 0;
-    virtual Tentacle& analogWrite(int pin, int value) = 0;
-    virtual bool digitalRead(int pin) = 0;
-    virtual int analogRead(int pin) = 0;
+    virtual Tentacle& setMode(int number, Action action) = 0;
+    virtual Tentacle& digitalWrite(int number, int value) = 0;
+    virtual Tentacle& analogWrite(int number, int value) = 0;
+    virtual bool digitalRead(int number) = 0;
+    virtual int analogRead(int number) = 0;
 
 
   protected:
