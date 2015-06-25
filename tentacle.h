@@ -1,8 +1,7 @@
 #ifndef tentacle_h
 #define tentacle_h
-#include "pin-buffer.h"
 
-#include "pin.h"
+#include "proto-buf.hpp"
 #include "meshblu-credentials.h"
 
 
@@ -10,14 +9,14 @@ class Tentacle {
   public:
     Tentacle(size_t numPins);
     ~Tentacle();
-    
-    Tentacle& configurePin(Pin& pin);
-    Tentacle& configurePins(PinBuffer& pins);
 
-    PinBuffer& getPins();
-    Tentacle& processPin(Pin& pin, bool writeValue=false);
-    Tentacle& processPins(PinBuffer& pins, bool writeValues=false);
+    Tentacle& configurePin(int number, Action action);
+    Tentacle& configurePins(Action* actions);
 
+    Action* getPinActions();
+
+    Tentacle& processPin(int pin, bool writeValue=false);
+    Tentacle& processPins(Action* actions, bool writeValues=false);
     Tentacle& processPins(bool writeValues=false);
 
 
@@ -26,7 +25,7 @@ class Tentacle {
     virtual const MeshbluCredentials& getCredentials() = 0;
     virtual Tentacle& setCredentials(const char* uuid, const char* token) = 0;
 
-    virtual Tentacle& setMode(Pin& pin) = 0;
+    virtual Tentacle& setMode(int pin, Action action) = 0;
     virtual Tentacle& digitalWrite(int pin, int value) = 0;
     virtual Tentacle& analogWrite(int pin, int value) = 0;
     virtual bool digitalRead(int pin) = 0;
@@ -35,8 +34,8 @@ class Tentacle {
 
   protected:
     int numPins;
-    PinBuffer* pins;
-    void printPin(Pin& pin);
+    Action* pinActions;
+    void resetPinActions();
 
 };
 
