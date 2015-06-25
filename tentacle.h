@@ -1,19 +1,22 @@
 #ifndef tentacle_h
 #define tentacle_h
-#include <vector>
+#include "pin-buffer.h"
 
-#include "pins.hpp"
+#include "pin.h"
 #include "meshblu-credentials.h"
-using namespace std;
+
 
 class Tentacle {
   public:
+    Tentacle(size_t numPins);
+    ~Tentacle();
+    
     Tentacle& configurePin(Pin& pin);
-    Tentacle& configurePins(vector<Pin>& pins);
+    Tentacle& configurePins(PinBuffer& pins);
 
-    vector<Pin>& getPins();
+    PinBuffer& getPins();
     Tentacle& processPin(Pin& pin, bool writeValue=false);
-    Tentacle& processPins(vector<Pin>& pins, bool writeValues=false);
+    Tentacle& processPins(PinBuffer& pins, bool writeValues=false);
 
     Tentacle& processPins(bool writeValues=false);
 
@@ -32,7 +35,7 @@ class Tentacle {
 
   protected:
     int numPins;
-    vector<Pin> pins;
+    PinBuffer* pins;
     void printPin(Pin& pin);
 
 };

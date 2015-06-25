@@ -1,31 +1,43 @@
 #include "tentacle.h"
 #include "Arduino.h"
 
+Tentacle::Tentacle(size_t numPins) {
+  this->numPins = numPins;
+  pins = new PinBuffer(numPins);
+}
+
+Tentacle::~Tentacle() {
+  delete pins;
+}
+
 Tentacle& Tentacle::configurePin(Pin& pin) {
+  pins->reset();
+  pins->updatePin(pin);
+
+  Serial.println("Configuring pin:");
+  printPin(pin);
+
   if(pin.getAction() == Pin::ignore) {
       return *this;
   }
 
-  Serial.println("Configuring pin:");
-  printPin(pin);
 
   setMode(pin);
 
   return *this;
 }
 
-Tentacle& Tentacle::configurePins(vector<Pin>& pins) {
-  for(int i = 0; i < pins.size(); i++) {
-    configurePin(pins[i]);
-  }
+Tentacle& Tentacle::configurePins(PinBuffer& pins) {
 
-  this->pins = pins;
+  for(int i = 0; i < pins.size(); i++) {
+    configurePin(pins.getPin(i));
+  }
 
   return *this;
 }
 
-vector<Pin>& Tentacle::getPins() {
-  return pins;
+PinBuffer& Tentacle::getPins() {
+  return *pins;
 }
 
 Tentacle& Tentacle::processPin(Pin &pin, bool writeValue) {
@@ -55,13 +67,13 @@ Tentacle& Tentacle::processPin(Pin &pin, bool writeValue) {
     default:
     break;
   }
-  
+
   return *this;
 }
 
-Tentacle& Tentacle::processPins(vector<Pin> &pins, bool writeValues) {
+Tentacle& Tentacle::processPins(PinBuffer &pins, bool writeValues) {
   for(int i = 0; i < pins.size(); i++) {
-    Pin &pin = pins[i];
+    Pin& pin = pins.getPin(i);
 
     Serial.print("Processing pin ");
     Serial.print(i);
@@ -77,7 +89,7 @@ Tentacle& Tentacle::processPins(vector<Pin> &pins, bool writeValues) {
 }
 
 Tentacle& Tentacle::processPins(bool writeValues) {
-  return processPins(pins, writeValues);
+  return processPins(*pins, writeValues);
 }
 
 int Tentacle::getNumPins() const {

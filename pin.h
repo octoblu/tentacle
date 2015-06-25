@@ -1,5 +1,5 @@
-#ifndef pin_h
-#define pin_h
+#ifndef PIN_H
+#define PIN_H
 
 class Pin {
   public:
@@ -23,16 +23,17 @@ class Pin {
     int getNumber() const;
     Action getAction() const;
     int getValue() const;
-    Pin setValue(int value);
-    Pin setAction(Action action);
+    Pin& setValue(int value);
+    Pin& setAction(Action action);
     bool getPullup() const;
-    Pin reset(int number);
+    Pin& reset(int number);
 
   private:
     int number;
     Action action;
     int value;
     bool pullup;
+    Pin(const Pin& pin);
 };
 
 #endif

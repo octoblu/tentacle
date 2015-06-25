@@ -2,7 +2,7 @@
 #define MESHBLU_CREDENTIALS_H
 #include <stddef.h>
 
-#include "pins.hpp"
+#include "pin.h"
 
 struct MeshbluCredentials {
 
