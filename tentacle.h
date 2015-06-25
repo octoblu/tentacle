@@ -15,9 +15,8 @@ class Tentacle {
 
     Action* getPinActions();
 
-    Tentacle& processPin(int pin, bool writeValue=false);
-    Tentacle& processPins(Action* actions, bool writeValues=false);
-    Tentacle& processPins(bool writeValues=false);
+    int processPin(int pin, int value);
+    int processPin(int pin);
 
 
     int getNumPins() const;

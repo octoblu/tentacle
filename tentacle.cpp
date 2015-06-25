@@ -35,63 +35,47 @@ Tentacle& Tentacle::configurePin(int number, Action action) {
 
 Tentacle& Tentacle::configurePins(Action* actions) {
 
-  for(int i = 0; i < pins.size(); i++) {
+  for(int i = 0; i < numPins; i++) {
     configurePin(i, actions[i]);
   }
 
   return *this;
 }
 
-Tentacle& Tentacle::processPin(int pin, bool writeValue) {
+int Tentacle::processPin(int pin, int value) {
   Action action = pinActions[pin];
   switch(action) {
 
     case Action_digitalWrite:
-      if(writeValue) {
-        digitalWrite(pin, pin.getValue());
-      }
+      digitalWrite(pin, value);
+      return value;
     break;
 
     case Action_analogWrite:
-      if(writeValue) {
-        analogWrite(pin, pin.getValue());
-      }
+      analogWrite(pin, value);
+      return value;
     break;
+  }
 
+  return processPin(pin);
+}
+
+int Tentacle::processPin(int pin) {
+  Action action = pinActions[pin];
+  switch(action) {
     case Action_digitalRead:
-      pin.setValue(digitalRead(pin));
+      return digitalRead(pin);
     break;
 
     case Action_analogRead:
-      pin.setValue(analogRead(pin));
+      return analogRead(pin);
     break;
 
     default:
     break;
   }
 
-  return *this;
-}
-
-Tentacle& Tentacle::processPins(PinActions &pins, bool writeValues) {
-  for(int i = 0; i < pins.size(); i++) {
-    Pin& pin = pins.getPin(i);
-
-    Serial.print("Processing pin ");
-    Serial.print(i);
-    printPin(pin);
-
-    processPin(pin, writeValues);
-
-    Serial.println("after");
-    printPin(pin);
-  }
-
-  return *this;
-}
-
-Tentacle& Tentacle::processPins(bool writeValues) {
-  return processPins(*pins, writeValues);
+  return -1;
 }
 
 int Tentacle::getNumPins() const {
