@@ -12,10 +12,10 @@ class Tentacle {
     Tentacle& configurePins(vector<Pin>& pins);
 
     vector<Pin>& getPins();
-    Pin processPin(Pin& pin, bool writeValue=false);
-    vector<Pin>& processPins(vector<Pin>& pins, bool writeValues=false);
+    void processPin(Pin& pin, bool writeValue=false);
+    void processPins(vector<Pin>& pins, bool writeValues=false);
 
-    vector<Pin>& processPins(bool writeValues=false);
+    void processPins(bool writeValues=false);
 
 
     int getNumPins() const;

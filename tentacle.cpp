@@ -28,7 +28,7 @@ vector<Pin>& Tentacle::getPins() {
   return pins;
 }
 
-Pin Tentacle::processPin(Pin &pin, bool writeValue) {
+void Tentacle::processPin(Pin &pin, bool writeValue) {
 
   switch(pin.getAction()) {
 
@@ -55,31 +55,25 @@ Pin Tentacle::processPin(Pin &pin, bool writeValue) {
     default:
     break;
   }
-
-  return pin;
 }
 
-vector<Pin>& Tentacle::processPins(vector<Pin> &pins, bool writeValues) {
-  vector<Pin> newPins;
-
+void Tentacle::processPins(vector<Pin> &pins, bool writeValues) {
   for(int i = 0; i < pins.size(); i++) {
     Pin &pin = pins[i];
 
     Serial.print("Processing pin ");
     Serial.print(i);
     printPin(pin);
-    Pin pin2 = this->processPin(pin, writeValues);
-    Serial.println("after");
-    printPin(pin2);
-    newPins.push_back(pin2);
-  }
 
-  return newPins;
+    processPin(pin, writeValues);
+
+    Serial.println("after");
+    printPin(pin);
+  }
 }
 
-vector<Pin>& Tentacle::processPins(bool writeValues) {
-  pins = processPins(pins, writeValues);
-  return pins;
+void Tentacle::processPins(bool writeValues) {
+  processPins(pins, writeValues);  
 }
 
 int Tentacle::getNumPins() const {
