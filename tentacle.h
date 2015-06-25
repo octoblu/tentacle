@@ -1,24 +1,21 @@
 #ifndef tentacle_h
 #define tentacle_h
+#include <vector>
 
 #include "pins.hpp"
 #include "meshblu-credentials.h"
+using namespace std;
 
 class Tentacle {
   public:
-    ~Tentacle();
-    Tentacle& configurePin(const Pin pin);
-    Tentacle& configurePins(Pin* pins);
-    Tentacle& configurePins(const PinArray& pinArray);
-    Tentacle& resetPins();
+    Tentacle& configurePin(Pin& pin);
+    Tentacle& configurePins(vector<Pin>& pins);
 
-    Pin& getPin(int pinNum);
-    Pin* getPins();
+    vector<Pin>& getPins();
+    Pin processPin(Pin& pin, bool writeValue=false);
+    vector<Pin>& processPins(vector<Pin>& pins, bool writeValues=false);
 
-    Pin& processPin(Pin &pin, bool writeValue=false);
-    Pin* processPins(Pin* pins, bool writeValues=false);
-    Pin* processPins(const PinArray& pinArray, bool writeValues=false);
-    Pin* processPins(bool writeValues=false);
+    vector<Pin>& processPins(bool writeValues=false);
 
 
     int getNumPins() const;
@@ -26,7 +23,7 @@ class Tentacle {
     virtual const MeshbluCredentials& getCredentials() = 0;
     virtual Tentacle& setCredentials(const char* uuid, const char* token) = 0;
 
-    virtual Tentacle& setMode(Pin pin) = 0;
+    virtual Tentacle& setMode(Pin& pin) = 0;
     virtual Tentacle& digitalWrite(int pin, int value) = 0;
     virtual Tentacle& analogWrite(int pin, int value) = 0;
     virtual bool digitalRead(int pin) = 0;
@@ -35,7 +32,9 @@ class Tentacle {
 
   protected:
     int numPins;
-    Pin *pins;
+    vector<Pin> pins;
+    void printPin(Pin& pin);
+
 };
 
 #endif

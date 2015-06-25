@@ -1,7 +1,7 @@
 #ifndef MESHBLU_CREDENTIALS_H
 #define MESHBLU_CREDENTIALS_H
+#include <stddef.h>
 
-#include "pin-array.h"
 #include "pins.hpp"
 
 struct MeshbluCredentials {
