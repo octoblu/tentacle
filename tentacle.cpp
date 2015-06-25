@@ -3,26 +3,26 @@
 
 Tentacle::Tentacle(size_t numPins) {
   this->numPins = numPins;
-  pinActions = new Action[numPins];
+  configuredPinActions = new Action[numPins];
   resetPinActions();
 }
 
-Action* Tentacle::getPinActions() {
-  return pinActions;
+Action* Tentacle::getConfiguredPinActions() {
+  return configuredPinActions;
 }
 
 void Tentacle::resetPinActions() {
   for(int i = 0; i < numPins; i++) {
-    pinActions[i] = Action_ignore;
+    configuredPinActions[i] = Action_ignore;
   }
 }
 
 Tentacle::~Tentacle() {
-  delete pinActions;
+  delete configuredPinActions;
 }
 
 Tentacle& Tentacle::configurePin(int number, Action action) {
-  pinActions[number] = action;
+  configuredPinActions[number] = action;
   if(action == Action_ignore) {
       return *this;
   }
@@ -43,7 +43,7 @@ Tentacle& Tentacle::configurePins(Action* actions) {
 }
 
 int Tentacle::processPin(int number, int value) {
-  Action action = pinActions[number];
+  Action action = configuredPinActions[number];
   switch(action) {
 
     case Action_digitalWrite:
@@ -61,7 +61,7 @@ int Tentacle::processPin(int number, int value) {
 }
 
 int Tentacle::processPin(int number) {
-  Action action = pinActions[number];
+  Action action = configuredPinActions[number];
   switch(action) {
     case Action_digitalRead:
     case Action_digitalReadPullup:

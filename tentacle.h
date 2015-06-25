@@ -13,7 +13,7 @@ class Tentacle {
     Tentacle& configurePin(int number, Action action);
     Tentacle& configurePins(Action* actions);
 
-    Action* getPinActions();
+    Action* getConfiguredPinActions();
 
     int processPin(int number, int value);
     int processPin(int pin);
@@ -33,7 +33,7 @@ class Tentacle {
 
   protected:
     int numPins;
-    Action* pinActions;
+    Action* configuredPinActions;
     void resetPinActions();
 
 };
