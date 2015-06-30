@@ -22,6 +22,11 @@ Tentacle::~Tentacle() {
 }
 
 Tentacle& Tentacle::configurePin(int number, Action action) {
+
+  if( number < 0 || number >= numPins) {
+    return *this;
+  }
+
   configuredPinActions[number] = action;
   if(action == Action_ignore) {
       return *this;
@@ -43,6 +48,10 @@ Tentacle& Tentacle::configurePins(Action* actions) {
 }
 
 int Tentacle::processPin(int number, int value) {
+  if( number < 0 || number >= numPins) {
+    return -1;
+  }
+
   Action action = configuredPinActions[number];
   switch(action) {
 
@@ -61,6 +70,10 @@ int Tentacle::processPin(int number, int value) {
 }
 
 int Tentacle::processPin(int number) {
+  if( number < 0 || number >= numPins) {
+    return -1;
+  }
+  
   Action action = configuredPinActions[number];
   switch(action) {
     case Action_digitalRead:
