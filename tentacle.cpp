@@ -1,5 +1,12 @@
 #include "tentacle.h"
+
+// Make library cross-compatiable
+// with Arduino, GNU C++ for tests, and Spark.
+#if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
+#elif defined(SPARK)
+#include "application.h"
+#endif
 
 Tentacle::Tentacle(size_t numPins) {
   this->numPins = numPins;
@@ -73,7 +80,7 @@ int Tentacle::processPin(int number) {
   if( number < 0 || number >= numPins) {
     return -1;
   }
-  
+
   Action action = configuredPinActions[number];
   switch(action) {
     case Action_digitalRead:
