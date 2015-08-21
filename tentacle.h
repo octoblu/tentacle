@@ -13,7 +13,9 @@ class Tentacle {
       Action_digitalRead,
       Action_digitalReadPullup,
       Action_digitalWrite,
-      Action_ignore
+      Action_ignore,
+      Action_pwmWrite,
+      Action_servoWrite
     };
 
     Tentacle(size_t numPins);
