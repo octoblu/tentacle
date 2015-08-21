@@ -10,17 +10,17 @@
 
 Tentacle::Tentacle(size_t numPins) {
   this->numPins = numPins;
-  configuredPinActions = new Action[numPins];
+  configuredPinActions = new Tentacle::Action[numPins];
   resetPinActions();
 }
 
-Action* Tentacle::getConfiguredPinActions() {
+Tentacle::Action* Tentacle::getConfiguredPinActions() {
   return configuredPinActions;
 }
 
 void Tentacle::resetPinActions() {
   for(int i = 0; i < numPins; i++) {
-    configuredPinActions[i] = Action_ignore;
+    configuredPinActions[i] = Tentacle::Action_ignore;
   }
 }
 
@@ -28,14 +28,14 @@ Tentacle::~Tentacle() {
   delete configuredPinActions;
 }
 
-Tentacle& Tentacle::configurePin(int number, Action action) {
+Tentacle& Tentacle::configurePin(int number, Tentacle::Action action) {
 
   if( number < 0 || number >= numPins) {
     return *this;
   }
 
   configuredPinActions[number] = action;
-  if(action == Action_ignore) {
+  if(action == Tentacle::Action_ignore) {
       return *this;
   }
 
@@ -45,7 +45,7 @@ Tentacle& Tentacle::configurePin(int number, Action action) {
   return *this;
 }
 
-Tentacle& Tentacle::configurePins(Action* actions) {
+Tentacle& Tentacle::configurePins(Tentacle::Action* actions) {
 
   for(int i = 0; i < numPins; i++) {
     configurePin(i, actions[i]);
@@ -59,17 +59,20 @@ int Tentacle::processPin(int number, int value) {
     return -1;
   }
 
-  Action action = configuredPinActions[number];
+  Tentacle::Action action = configuredPinActions[number];
   switch(action) {
 
-    case Action_digitalWrite:
+    case Tentacle::Action_digitalWrite:
       digitalWrite(number, value);
       return value;
     break;
 
-    case Action_analogWrite:
+    case Tentacle::Action_analogWrite:
       analogWrite(number, value);
       return value;
+    break;
+
+    default:
     break;
   }
 
@@ -81,15 +84,15 @@ int Tentacle::processPin(int number) {
     return -1;
   }
 
-  Action action = configuredPinActions[number];
+  Tentacle::Action action = configuredPinActions[number];
   switch(action) {
-    case Action_digitalRead:
-    case Action_digitalReadPullup:
+    case Tentacle::Action_digitalRead:
+    case Tentacle::Action_digitalReadPullup:
       return digitalRead(number);
     break;
 
-    case Action_analogRead:
-    case Action_analogReadPullup:
+    case Tentacle::Action_analogRead:
+    case Tentacle::Action_analogReadPullup:
       return analogRead(number);
     break;
 
