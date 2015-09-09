@@ -4,7 +4,9 @@ set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build")
 
 project (tentacle)
 
-add_library(tentacle STATIC tentacle.cpp)
+file(GLOB SRCS *.cpp *.hpp *.c *.h)
+
+add_library(tentacle STATIC ${SRCS})
 
 include_directories( tentacle
   PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
