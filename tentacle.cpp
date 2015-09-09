@@ -67,6 +67,7 @@ int Tentacle::processPin(int number, int value) {
       return value;
     break;
 
+    case Tentacle::Action_pwmWrite:
     case Tentacle::Action_analogWrite:
       analogWrite(number, value);
       return value;
